@@ -1,6 +1,7 @@
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
+
     >>> encrypt_caesar("PYTHON")
     'SBWKRQ'
     >>> encrypt_caesar("python")
@@ -11,13 +12,26 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    encrypted = []
+    for letter in plaintext:
+        if ord(letter) in range(ord('a'), ord('z') + 1):
+            if ord(letter) + shift > 122:
+                encrypted.append(chr(ord(letter) + shift - 26))
+            else:
+                encrypted.append(chr(ord(letter) + shift))
+        if ord(letter) in range(ord('A'), ord('Z') + 1):
+            if ord(letter) + shift > 90:
+                encrypted.append(chr(ord(letter) + shift - 26))
+            else:
+                encrypted.append(chr(ord(letter) + shift))
+        if (ord(letter) < 65) or ((ord(letter) > 90) and (ord(letter) < 97)) or (ord(letter) > 122):
+            encrypted.append(letter)
+    ciphertext = ''.join(encrypted)
     return ciphertext
-
-
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
+
     >>> decrypt_caesar("SBWKRQ")
     'PYTHON'
     >>> decrypt_caesar("sbwkrq")
@@ -28,5 +42,19 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    decrypted = []
+    for letter in ciphertext:
+        if ord(letter) in range(ord('a'),ord('z')+1):
+            if ord(letter) - shift < 97:
+                decrypted.append(chr(ord(letter) - shift + 26))
+            else:
+                decrypted.append(chr(ord(letter) - shift))
+        if ord(letter) in range(ord('A'),ord('Z')+1):
+            if ord(letter) - shift < 65:
+                decrypted.append(chr(ord(letter) - shift + 26))
+            else:
+                decrypted.append(chr(ord(letter) - shift))
+        if (ord(letter)<65)or((ord(letter)>90)and(ord(letter)<97))or(ord(letter)>122):
+            decrypted.append(letter)
+    plaintext = ''.join(decrypted)
     return plaintext
