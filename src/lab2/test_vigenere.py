@@ -27,6 +27,5 @@ class TestVigenereCipher(unittest.TestCase):
         with self.assertRaises(TypeError):
             decrypt_vigenere([1 , 2 , 3 ], 'key')
 
-
 if __name__ == "__main__":
     unittest.main()
