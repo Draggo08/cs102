@@ -12,16 +12,16 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
+    # PUT YOUR CODE HERE
     i = 1
-    k = 0
-    while i*i < n:
-        if n % i == 0:
-            k+=2
-        i+=1
-    if i*i == n:
-        k+=1
-    if k == 2: return(True)
-    else: return(False)
+    count = 0 # колчество делителей
+    while i*i < n :
+        if n % i == 0 : count += 2
+        i += 1
+    if i*i == n : count += 1
+
+    return count == 2
+
 
 
 def gcd(a: int, b: int) -> int:
@@ -32,14 +32,16 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
+    result = 0
+    # PUT YOUR CODE HERE
     if a > b:  # define the if condition
-        temp = b
+        prom = b
     else:
-        temp = a
-    for i in range(1, temp + 1):
-        if ((a % i == 0) and (b % i == 0)):
-            gcd = i
-    return gcd
+        prom = a
+    for i in range(1, prom + 1):
+        if (a % i == 0) and (b % i == 0):
+            result = i
+    return result
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
@@ -49,11 +51,14 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     >>> multiplicative_inverse(7, 40)
     23
     """
+
     d = 0
-    for  d in range(1,max(e,phi)):
-        if (d*e)%phi == 1:
+
+    for d in range(1, max(e, phi)):
+        if (d * e) % phi == 1:
             res1 = d
     res = 0
+
     while (e % phi != 0):
         res = e % phi
         e = phi
@@ -61,6 +66,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     if phi == 1:
         return res1
 
+    return x0
 
 def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
@@ -69,10 +75,12 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
         raise ValueError("p and q cannot be equal")
 
     # n = pq
-    n = p*q
+    n = p * q
+    # PUT YOUR CODE HERE
 
     # phi = (p-1)(q-1)
-    phi = (p-1)*(q-1)
+    phi = (p - 1) * (q - 1)
+    # PUT YOUR CODE HERE
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)

@@ -1,7 +1,6 @@
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
-
     >>> encrypt_caesar("PYTHON")
     'SBWKRQ'
     >>> encrypt_caesar("python")
@@ -12,26 +11,39 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     ''
     """
     ciphertext = ""
-    encrypted = []
-    for letter in plaintext:
-        if ord(letter) in range(ord('a'), ord('z') + 1):
-            if ord(letter) + shift > 122:
-                encrypted.append(chr(ord(letter) + shift - 26))
+    # PUT YOUR CODE HERE
+
+    # проверка на то , что поступили правильные параметры
+    if not isinstance(plaintext, str) or not isinstance(shift, int):
+        raise ValueError("параметры введены неверно")
+
+    # пройдемся по каждому символу в строке
+    for char in plaintext:
+        # Проверяем, является ли символ буквой
+        if char.isalpha():
+            # Определяем регистр символа (верхний или нижний)
+            is_upper = char.isupper()
+            # Преобразуем символ в верхний регистр для унификации
+            char = char.upper()
+            # Вычисляем сдвиг, учитывая алфавит с 26 буквами
+            shifted_char = chr(((ord(char) - ord('A') + shift) % 26) + ord('A'))
+            # Если исходный символ был в верхнем регистре, сохраняем его в верхнем регистре
+            if is_upper:
+                shifted_char = shifted_char.upper()
             else:
-                encrypted.append(chr(ord(letter) + shift))
-        if ord(letter) in range(ord('A'), ord('Z') + 1):
-            if ord(letter) + shift > 90:
-                encrypted.append(chr(ord(letter) + shift - 26))
-            else:
-                encrypted.append(chr(ord(letter) + shift))
-        if (ord(letter) < 65) or ((ord(letter) > 90) and (ord(letter) < 97)) or (ord(letter) > 122):
-            encrypted.append(letter)
-    ciphertext = ''.join(encrypted)
+                shifted_char = shifted_char.lower()
+            # Добавляем зашифрованный символ к результату
+            ciphertext += shifted_char
+        else:
+            # Если символ не является буквой, оставляем его без изменений
+            ciphertext += char
+
     return ciphertext
+
+
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
-
     >>> decrypt_caesar("SBWKRQ")
     'PYTHON'
     >>> decrypt_caesar("sbwkrq")
@@ -42,19 +54,30 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     ''
     """
     plaintext = ""
-    decrypted = []
-    for letter in ciphertext:
-        if ord(letter) in range(ord('a'),ord('z')+1):
-            if ord(letter) - shift < 97:
-                decrypted.append(chr(ord(letter) - shift + 26))
+    # PUT YOUR CODE HERE
+
+    # проверка на то , что поступили правильные параметры
+    if not isinstance(plaintext, str) or not isinstance(shift, int):
+        raise ValueError("параметры введены неверно")
+
+    # Пройдемся по каждому символу в зашифрованном тексте
+    for char in ciphertext:
+        # Проверяем, является ли символ буквой
+        if char.isalpha():
+            # Определяем регистр символа (верхний или нижний)
+            is_upper = char.isupper()
+            # Преобразуем символ в верхний регистр для унификации
+            char = char.upper()
+            # Вычисляем сдвиг назад в алфавите
+            shifted_char = chr(((ord(char) - ord('A') - shift) % 26) + ord('A'))
+            # Если исходный символ был в верхнем регистре, сохраняем его в верхнем регистре
+            if is_upper:
+                shifted_char = shifted_char.upper()
             else:
-                decrypted.append(chr(ord(letter) - shift))
-        if ord(letter) in range(ord('A'),ord('Z')+1):
-            if ord(letter) - shift < 65:
-                decrypted.append(chr(ord(letter) - shift + 26))
-            else:
-                decrypted.append(chr(ord(letter) - shift))
-        if (ord(letter)<65)or((ord(letter)>90)and(ord(letter)<97))or(ord(letter)>122):
-            decrypted.append(letter)
-    plaintext = ''.join(decrypted)
+                shifted_char = shifted_char.lower()
+            # Добавляем расшифрованный символ к результату
+            plaintext += shifted_char
+        else:
+            # Если символ не является буквой, оставляем его без изменений
+            plaintext += char
     return plaintext

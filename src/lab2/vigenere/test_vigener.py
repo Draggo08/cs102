@@ -16,5 +16,5 @@ class TestVigenereCipher(unittest.TestCase):
         self.assertEqual(decrypt_vigenere("python", "a"), "python")
         self.assertEqual(decrypt_vigenere("", "KEY"), "")
 
-if name == "__main__":
+if __name__ == "__main__":
     unittest.main()
